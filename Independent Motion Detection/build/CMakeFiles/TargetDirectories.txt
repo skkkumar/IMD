@@ -1,0 +1,5 @@
+/home/sriram/projects/Independent Motion Detection/build/CMakeFiles/imd.dir
+/home/sriram/projects/Independent Motion Detection/build/Moveball/CMakeFiles/move_ball.dir
+/home/sriram/projects/Independent Motion Detection/build/mover/CMakeFiles/mover.dir
+/home/sriram/projects/Independent Motion Detection/build/opencv/CMakeFiles/tracker.dir
+/home/sriram/projects/Independent Motion Detection/build/CMakeFiles/uninstall.dir

@@ -1,0 +1,121 @@
+<application>
+
+  <name>object Detector</name>
+
+  <dependencies>
+      <port>/icubSim/cam/left</port>
+      <port>/icubSim/cam/right</port>
+<!--       <port>/icubSim/cartesianController/right_arm/state:o</port>       -->
+      <port>/iKinGazeCtrl/rpc</port>
+  </dependencies>
+
+  <module>
+      <name>objectdetection</name>
+      <node>localhost</node>
+      <stdio>localhost</stdio>
+      <tag>objectdetection</tag>
+  </module>
+
+  <module>
+      <name>tracker</name>
+      <node>localhost</node>
+      <tag>tracker</tag>
+  </module>  
+  
+    <module>
+      <name>ml</name>
+      <node>localhost</node>
+      <tag>ml</tag>
+  </module>  
+  
+  <module>
+      <name>yarpview</name>
+      <parameters>--name /objectViewerLeft --x 10 --y 10</parameters>
+      <node>localhost</node>
+      <tag>objectViewerRight</tag>
+  </module>
+  
+    <module>
+      <name>yarpview</name>
+      <parameters>--name /original:o --x 10 --y 10</parameters>
+      <node>localhost</node>
+      <tag>original</tag>
+  </module>
+  
+  
+  <module>
+      <name>yarpview</name>
+      <parameters>--name /objectViewerRight --x 10 --y 10</parameters>
+      <node>localhost</node>
+      <tag>objectViewerLeft</tag>
+  </module>
+
+  <connection>
+      <from>/icubSim/cam/left</from>
+      <to>/tracker/imageL:i</to>
+      <protocol>udp</protocol>
+  </connection>
+
+  <connection>
+      <from>/icubSim/cam/left</from>
+      <to>/original:o</to>
+      <protocol>udp</protocol>
+  </connection>
+  
+  <connection>
+      <from>/icubSim/cam/right</from>
+      <to>/tracker/imageR:i</to>
+      <protocol>udp</protocol>
+  </connection>
+  
+  <connection>
+      <from>/tracker/imageL:o</from>
+      <to>/objectViewerLeft</to>
+      <protocol>udp</protocol>
+  </connection>
+
+  <connection>
+      <from>/tracker/imageR:o</from>
+      <to>/objectViewerRight</to>
+      <protocol>udp</protocol>
+  </connection>
+  
+    <connection>
+      <from>/moveHead/check:o</from>
+      <to>/moveHead/check:i</to>
+      <protocol>udp</protocol>
+  </connection>
+  
+<!--    <connection>
+      <from>/objectDetect/gaze/port</from>
+      <to>/tracker</to>
+      <protocol>udp</protocol>
+  </connection>-->
+  
+  <connection>
+      <from>/observe/gaze/port</from>
+      <to>/tracker</to>
+      <protocol>udp</protocol>
+  </connection>
+  
+    <connection>
+      <from>/tracker/ml:o</from>
+      <to>/mllearn:i</to>
+      <protocol>udp</protocol>
+  </connection>
+  
+  <connection>
+      <from>/tracker/mlcomm:o</from>
+      <to>/ml/human:i</to>
+      <protocol>udp</protocol>
+  </connection>
+  
+    <connection>
+      <from>/ml/human:o</from>
+      <to>/tracker/mldata:i</to>
+      <protocol>udp</protocol>
+  </connection>
+  
+</application>
+
+
